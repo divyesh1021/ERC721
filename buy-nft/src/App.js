@@ -1,4 +1,5 @@
 import './App.css';
+import "@rainbow-me/rainbowkit/styles.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Buy from "./components/Buy";
@@ -11,43 +12,72 @@ import Mint from './components/Mint';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Owner from './components/Owner';
+import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { publicProvider } from "wagmi/providers/public";
 
+// import { na } from "./YourComponent";
+
+
+const { chains, provider } = configureChains(
+  [chain.goerli,chain.polygonMumbai,chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
+  [alchemyProvider({ alchemyId: process.env.ALCHEMY_ID }), publicProvider()]
+);
+
+const { connectors } = getDefaultWallets({
+  appName: "My RainbowKit App",
+  chains
+});
+
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider
+});
+
+
+
+// import i from './image/e.gif';
 function App() {
 
-  const [state,setState] = useState({provider:null,signer:null,contract:null});
+  const [state, setState] = useState({ provider: null, signer: null, contract: null });
 
   useEffect(() => {
     const connectWallet = async () => {
       const contract_add = "0xad9aaF64EB31494Bd662f62EBeBf2061cFA86F11";
       const Abi = abi.abi;
       const { ethereum } = window;
-      if(ethereum){
+      if (ethereum) {
         const account = await ethereum.request({ method: 'eth_requestAccounts' });
       };
       const provider = new ethers.providers.Web3Provider(ethereum);
-      console.log('provider===========================================================',provider)
+      console.log('provider===========================================================', provider)
       const Signer = provider.getSigner();
-      const contract = new ethers.Contract(contract_add,Abi,Signer);
-      setState({provider,Signer,contract});
+      const contract = new ethers.Contract(contract_add, Abi, Signer);
+      setState({ provider, Signer, contract });
     };
     connectWallet();
-  },[]);
+  }, []);
 
   return (
     <>
-    <div>
-      
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/set-url" element={<Set state={state}/>}></Route>
-          <Route path="/buy" element={<Buy state={state} />}></Route>
-          <Route path="/mint" element={<Mint state={state} />}></Route>
-          <Route path="" element={<Home state={state} />}></Route>
-          <Route path="/owner" element={<Owner state={state}  />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+      <div>
+        <BrowserRouter>
+          <WagmiConfig client={wagmiClient}>
+            <RainbowKitProvider chains={chains}>
+              <Navbar />
+            </RainbowKitProvider>
+          </WagmiConfig>
+          <Routes>
+            <Route path="/set-url" element={<Set state={state} />}></Route>
+            <Route path="/buy" element={<Buy state={state} />}></Route>
+            <Route path="/mint" element={<Mint state={state} />}></Route>
+            <Route path="" element={<Home state={state} />}></Route>
+            <Route path="/owner" element={<Owner state={state} />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
     </>
   );
 }
