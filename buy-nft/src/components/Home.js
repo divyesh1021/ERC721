@@ -43,8 +43,8 @@ const Home = ({ state }) => {
 
     return (
         <>
-            <div className='div1' style={{ "backgroundImage": `url(${i})`, "marginTop": "-20px", "height": "924px","background-attachment": "fixed" ,"background-size": "100% 100%"  }}>
-                <div style={{ margin: "auto", padding: "20px 5px", marginTop: "20px" }}>
+            <div className='div1' style={{ "backgroundImage": `url(${i})`,  "height": "918px","background-attachment": "fixed" ,"background-size": "100% 100%"  }}>
+                <div style={{ margin: "auto", padding: "20px 5px" }}>
                     {/* <img src={i} alt="" /> */}
                     {/* <Typography variant="h3" align="center" marginTop="20px" color="white">Home</Typography> */}
 

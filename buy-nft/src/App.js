@@ -16,7 +16,7 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
-
+import Web3 from 'web3';
 // import { na } from "./YourComponent";
 
 
@@ -39,7 +39,7 @@ const wagmiClient = createClient({
 
 
 // import i from './image/e.gif';
-function App() {
+function App({hash}) {
 
   const [state, setState] = useState({ provider: null, signer: null, contract: null });
 
@@ -51,6 +51,11 @@ function App() {
       if (ethereum) {
         const account = await ethereum.request({ method: 'eth_requestAccounts' });
       };
+      const web3 = new Web3(window.web3.currentProvider);
+      const account = await web3.eth.getAccounts();
+      const connected_account = account[0];
+      console.log("999999999999999999999999999999fffff 9999999999",connected_account)
+      
       const provider = new ethers.providers.Web3Provider(ethereum);
       console.log('provider===========================================================', provider)
       const Signer = provider.getSigner();
@@ -59,13 +64,15 @@ function App() {
     };
     connectWallet();
   }, []);
-
+  // const web3 = new Web3(window.web3.currentProvider);
+  // const account = await web3.eth.getAccounts();
+  // const connected_account = account[0];
   return (
     <>
       <div>
         <BrowserRouter>
           <WagmiConfig client={wagmiClient}>
-            <RainbowKitProvider chains={chains}>
+            <RainbowKitProvider chains={chains} coolMode showRecentTransactions={true}>
               <Navbar />
             </RainbowKitProvider>
           </WagmiConfig>

@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 
 const Mint = ({ state }) => {
     const [add, setAdd] = useState('');
+    // const [hash, setHash] = useState('');
 
     // const addRecentTransaction = useAddRecentTransaction();
 
@@ -24,6 +25,7 @@ const Mint = ({ state }) => {
         // const m = Number('----------value=====',s);
         // console.log(m)
         // const tr = mint.hash;
+        // setHash(tr);
         // const lo = ethers
         // console.log('=+++++++++++++++++',lo);
         console.log('----------a,', s1);
@@ -49,11 +51,12 @@ const Mint = ({ state }) => {
                             </form>
                         </CardContent>
                     </Card>
-                    {/* <RainbowKitProvider showRecentTransactions={true}>
-                        <Button type="submit" onClick={() => {Mint({addRecentTransaction({"hash":'0x'})})}} variant="contained" color="primary" size="large">show</Button>
+                
+                    {/* <RainbowKitProvider showRecentTransactions={hash}>
+                        <Button onClick={() => { addRecentTransaction({ hash: '0x...', description: '...' }) }}>Show</Button>
                     </RainbowKitProvider> */}
+                </div>
             </div>
-        </div>
         </>
     );
 };

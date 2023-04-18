@@ -144,8 +144,8 @@ const Navbar = () => {
             <nav className="navbar navbar-expand-lg navbar- bg-">
                 <div className="container-fluid" >
 
-                    <Button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                    <Button className="navbar-toggler ml-auto" style={{"background":"white","borderColor":"black"}}   type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon" ></span>
                     </Button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0" >
@@ -163,7 +163,7 @@ const Navbar = () => {
                             </li>
 
                         </ul>
-                        <div >
+                        <div>
                             {/* <Button size='large' variant='outlined' style={{"color":"white","borderColor":"lightblue"}} disabled={connecting} onClick={() => (wallet ? disconnect(wallet) : connect())}>
                                 {connecting ? 'connecting' : wallet ? 'disconnect' : 'connect'}
                             </Button> */}
